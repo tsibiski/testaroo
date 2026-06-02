@@ -50,4 +50,4 @@ Most maintenance functions operate entirely within WordPress and WooCommerce.
 
 Please consult the plugin documentation first.
 
-If you need additional assistance, contact support using Testaroo.Plugin@gmail.com, or the WordPress TTR plugin forum.
+If you need additional assistance, contact support using Testaroo.Plugin@outlook.com, or the WordPress TTR plugin forum.

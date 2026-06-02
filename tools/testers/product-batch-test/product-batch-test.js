@@ -1718,6 +1718,7 @@ function ClearBatchRun() {
     elTryFixAllTooSmallImagesRegion().style.display = 'none';
     elTryFixAllPromoteGalleryRegion().style.display = 'none';
     elClearBatchRunResultsRegion().style = 'display:none;';
+    document.querySelectorAll(".results-container").forEach(el => el.style.display = 'none');
     elResultsOfMassTooSmallImageFix().innerHTML = "";
     elResultsOfMassBrokenImageFix().innerHTML = "";
     elBatchTestResults().innerHTML = '<tbody></tbody>';

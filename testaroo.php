@@ -19,6 +19,7 @@ if (!function_exists('ttr_ajax_security_check')) {
  * License:                 GPL-3.0
  * License URI:             https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:             testaroo
+ * Requires Plugins: woocommerce
  * Requires at least:       5.9
  * Requires PHP:            7.4
  * WC requires at least:    6.0
@@ -274,7 +275,7 @@ function testaroo_tool() {
                     transition:background .15s,color .15s;">
                     📖 View Readme
                 </button>
-                <span style="margin-left:10px;font-size:11px">Testaroo.TTR@gmail.com</span>
+                <span style="margin-left:10px;font-size:11px">Testaroo.Plugin@outlook.com</span>
             </p>
            <div>
                 <!-- ── General Automated Behavior Settings ── -->
@@ -326,14 +327,14 @@ function testaroo_tool() {
                        <!-- Tavily API Key -->
                        <div>
                            <label style="display:block;font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">
-                               Tavily API Key <span style="color:#e05555;">*</span>
+                               Tavily API Key
                            </label>
                            <div style="display:flex;gap:10px;align-items:center;">
                                <input id="ttr-tavily-key-input" type="password" placeholder="tvly-…" style="width:360px;background:#111;color:#fff;border:1px solid #444;padding:8px 10px;font-family:'DM Mono',monospace;font-size:12px;border-radius:4px;">
                                <button onclick="ttrSaveTavilyKey(this)" style="padding:8px 16px;border:1px solid #c9a84c;color:#c9a84c;background:transparent;font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;text-transform:uppercase;letter-spacing:1px;border-radius:4px;">Save</button>
                            </div>
                            <div style="margin-top:8px;font-size:11px;color:#888;line-height:1.7;">
-                               Required for the image search tool. To get a free API key:
+                               Required ONLY for the image search tool. If you do not use that tool, this is not needed. To get a <strong style="color:#e8e8e8;">free</strong> API key:
                                <ol style="margin:6px 0 0 16px;padding:0;color:#888;">
                                    <li>Visit <a href="https://tavily.com" target="_blank" style="color:#c9a84c;">tavily.com</a> and click <strong style="color:#e8e8e8;">Get Started</strong></li>
                                    <li>Sign up for a free account</li>

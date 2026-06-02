@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 // ── WP_Filesystem bootstrap ───────────────────────────────────────────────────
 // Called once here so all functions below can use $wp_filesystem directly.
 
-function ttr_idt_fs(): WP_Filesystem_Base {
+function ttw_idt_fs(): WP_Filesystem_Base {
     global $wp_filesystem;
     if ( empty( $wp_filesystem ) ) {
         require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -17,56 +17,56 @@ function ttr_idt_fs(): WP_Filesystem_Base {
 
 // ── File path helpers ──────────────────────────────────────────────────────────
 
-function ttr_idt_load_state(): array {
-    $path = ttr_idt_state_path();
+function ttw_idt_load_state(): array {
+    $path = ttw_idt_state_path();
     if ( ! file_exists( $path ) ) return [];
-    $raw = ttr_idt_fs()->get_contents( $path );
+    $raw = ttw_idt_fs()->get_contents( $path );
     return $raw ? ( json_decode( $raw, true ) ?? [] ) : [];
 }
-function ttr_idt_save_state( array $state ): void {
-    ttr_idt_fs()->put_contents( ttr_idt_state_path(), json_encode( $state ), FS_CHMOD_FILE );
+function ttw_idt_save_state( array $state ): void {
+    ttw_idt_fs()->put_contents( ttw_idt_state_path(), json_encode( $state ), FS_CHMOD_FILE );
 }
-function ttr_idt_clear_state(): void {
-    $path = ttr_idt_state_path();
+function ttw_idt_clear_state(): void {
+    $path = ttw_idt_state_path();
     if ( file_exists( $path ) ) wp_delete_file( $path );
 }
 
-function ttr_idt_load_results(): array {
-    $path = ttr_idt_results_path();
+function ttw_idt_load_results(): array {
+    $path = ttw_idt_results_path();
     if ( ! file_exists( $path ) ) return [];
-    $raw = ttr_idt_fs()->get_contents( $path );
+    $raw = ttw_idt_fs()->get_contents( $path );
     return $raw ? ( json_decode( $raw, true ) ?? [] ) : [];
 }
-function ttr_idt_save_results( array $results ): void {
-    ttr_idt_fs()->put_contents( ttr_idt_results_path(), json_encode( $results ), FS_CHMOD_FILE );
+function ttw_idt_save_results( array $results ): void {
+    ttw_idt_fs()->put_contents( ttw_idt_results_path(), json_encode( $results ), FS_CHMOD_FILE );
 }
 
 // ── Deep-use cache — attachment IDs confirmed in-use outside products ──────────
 
-function ttr_idt_load_cache(): array {
-    $path = ttr_idt_cache_path();
+function ttw_idt_load_cache(): array {
+    $path = ttw_idt_cache_path();
     if ( ! file_exists( $path ) ) return [];
-    $raw = ttr_idt_fs()->get_contents( $path );
+    $raw = ttw_idt_fs()->get_contents( $path );
     return $raw ? ( json_decode( $raw, true ) ?? [] ) : [];
 }
-function ttr_idt_save_cache( array $cache ): void {
-    ttr_idt_fs()->put_contents( ttr_idt_cache_path(), json_encode( $cache ), FS_CHMOD_FILE );
+function ttw_idt_save_cache( array $cache ): void {
+    ttw_idt_fs()->put_contents( ttw_idt_cache_path(), json_encode( $cache ), FS_CHMOD_FILE );
 }
-function ttr_idt_is_cached( int $att_id ): bool {
-    $cache = ttr_idt_load_cache();
+function ttw_idt_is_cached( int $att_id ): bool {
+    $cache = ttw_idt_load_cache();
     return isset( $cache[(string) $att_id] );
 }
-function ttr_idt_add_to_cache( int $att_id, array $references ): void {
-    $cache = ttr_idt_load_cache();
+function ttw_idt_add_to_cache( int $att_id, array $references ): void {
+    $cache = ttw_idt_load_cache();
     $cache[(string) $att_id] = [
         'attachment_id' => $att_id,
         'added_at'      => gmdate( 'Y-m-d H:i:s' ),
         'references'    => $references,
     ];
-    ttr_idt_save_cache( $cache );
+    ttw_idt_save_cache( $cache );
 }
 
-function ttr_idt_find_existing_zips(): array {
+function ttw_idt_find_existing_zips(): array {
     $uploads = wp_upload_dir();
     $files   = glob( $uploads['basedir'] . '/deleted_unused_product_images_*.zip' ) ?: [];
     $result  = [];
@@ -84,7 +84,7 @@ function ttr_idt_find_existing_zips(): array {
 // ── Enqueue + localize saved results ──────────────────────────────────────────
 
 add_action('admin_enqueue_scripts', function ( $hook ) {
-    if ( $hook !== 'toplevel_page_testaroo' ) return;
+    if ( $hook !== 'toplevel_page_test-the-woo' ) return;
 
     wp_enqueue_style(
         'image-duplicate-test-css',
@@ -101,18 +101,18 @@ add_action('admin_enqueue_scripts', function ( $hook ) {
     );
 
     wp_localize_script( 'image-duplicate-test-js', 'IDT', [
-        'savedResults' => ttr_idt_load_results(),
-        'cacheCount'   => count( ttr_idt_load_cache() ),
-        'scanStatus'   => ttr_idt_get_scan_status(),
-        'existingZips' => ttr_idt_find_existing_zips(),
+        'savedResults' => ttw_idt_load_results(),
+        'cacheCount'   => count( ttw_idt_load_cache() ),
+        'scanStatus'   => ttw_idt_get_scan_status(),
+        'existingZips' => ttw_idt_find_existing_zips(),
     ]);
 });
 
 // ── SCAN STATUS — tells JS what is resumable on page load ─────────────────────
 
-function ttr_idt_get_scan_status(): array {
-    $state   = ttr_idt_load_state();
-    $results = ttr_idt_load_results();
+function ttw_idt_get_scan_status(): array {
+    $state   = ttw_idt_load_state();
+    $results = ttw_idt_load_results();
 
     $deep_offset = 0;
     $deep_total  = 0;
@@ -145,8 +145,8 @@ function ttr_idt_get_scan_status(): array {
 
 // ── PHASE 1 — Hash a batch of attachments ────────────────────────────────────
 
-add_action('wp_ajax_ttr_idt_scan_attachments', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_idt_scan_attachments', function () {
+    ttw_ajax_security_check();
     $offset     = max( 0, intval(  wp_unslash($_POST['offset'])     ?? 0 ) );
     $batch_size = max( 1, intval(  wp_unslash($_POST['batch_size']) ?? 50 ) );
 
@@ -163,14 +163,14 @@ add_action('wp_ajax_ttr_idt_scan_attachments', function () {
     $total = count( $all_ids );
     $batch = array_slice( $all_ids, $offset, $batch_size );
 
-    $state      = ( $offset === 0 ) ? [] : ttr_idt_load_state();
+    $state      = ( $offset === 0 ) ? [] : ttw_idt_load_state();
     $hash_map   = $state['hash_map']   ?? [];
     $id_to_hash = $state['id_to_hash'] ?? [];
 
     foreach ( $batch as $att_id ) {
         $file = get_attached_file( $att_id );
         if ( ! $file || ! file_exists( $file ) ) continue;
-        if ( ttr_is_image_blacklisted( $att_id ) ) continue;
+        if ( ttw_is_image_blacklisted( $att_id ) ) continue;
         $hash = md5_file( $file );
         if ( $hash === false ) continue;
         $hash_map[$hash][]   = (int) $att_id;
@@ -184,7 +184,7 @@ add_action('wp_ajax_ttr_idt_scan_attachments', function () {
     $state['phase']         = ( $processed >= $total ) ? 2 : 1;
     $state['att_processed'] = $processed;
     $state['att_total']     = $total;
-    ttr_idt_save_state( $state );
+    ttw_idt_save_state( $state );
 
     wp_send_json_success([
         'done'      => $processed >= $total,
@@ -195,8 +195,8 @@ add_action('wp_ajax_ttr_idt_scan_attachments', function () {
 
 // ── PHASE 2 — Read a batch of products' image maps ────────────────────────────
 
-add_action('wp_ajax_ttr_idt_scan_products', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_idt_scan_products', function () {
+    ttw_ajax_security_check();
     $offset     = max( 0, intval( wp_unslash($_POST['offset'])     ?? 0 ) );
     $batch_size = max( 1, intval( wp_unslash($_POST['batch_size']) ?? 50 ) );
 
@@ -212,7 +212,7 @@ add_action('wp_ajax_ttr_idt_scan_products', function () {
     $total = count( $all_product_ids );
     $batch = array_slice( $all_product_ids, $offset, $batch_size );
 
-    $state                  = ttr_idt_load_state();
+    $state                  = ttw_idt_load_state();
     $product_image_map      = $state['product_image_map']      ?? [];
     $attachment_to_products = $state['attachment_to_products'] ?? [];
 
@@ -241,7 +241,7 @@ add_action('wp_ajax_ttr_idt_scan_products', function () {
     $state['phase']                  = ( $processed >= $total ) ? 3 : 2;
     $state['prod_processed']         = $processed;
     $state['prod_total']             = $total;
-    ttr_idt_save_state( $state );
+    ttw_idt_save_state( $state );
 
     wp_send_json_success([
         'done'      => $processed >= $total,
@@ -252,9 +252,9 @@ add_action('wp_ajax_ttr_idt_scan_products', function () {
 
 // ── PHASE 3 — Analyse and save results ───────────────────────────────────────
 
-add_action('wp_ajax_ttr_idt_analyse', function () {
-    ttr_ajax_security_check();
-    $state = ttr_idt_load_state();
+add_action('wp_ajax_ttw_idt_analyse', function () {
+    ttw_ajax_security_check();
+    $state = ttw_idt_load_state();
     if ( empty( $state ) ) {
         wp_send_json_error(['message' => 'Scan state missing or expired. Please run the scan again.']);
         return;
@@ -377,17 +377,17 @@ add_action('wp_ajax_ttr_idt_analyse', function () {
         'unused_images'            => $s3,
     ];
 
-    ttr_idt_save_results( $results );
-    ttr_idt_clear_state();
+    ttw_idt_save_results( $results );
+    ttw_idt_clear_state();
 
     wp_send_json_success( $results );
 });
 
 // ── GET RESULTS ───────────────────────────────────────────────────────────────
 
-add_action('wp_ajax_ttr_idt_get_results', function () {
-    ttr_ajax_security_check();
-    $results = ttr_idt_load_results();
+add_action('wp_ajax_ttw_idt_get_results', function () {
+    ttw_ajax_security_check();
+    $results = ttw_idt_load_results();
     if ( empty( $results ) ) {
         wp_send_json_error(['message' => 'No results found.']);
         return;
@@ -397,14 +397,14 @@ add_action('wp_ajax_ttr_idt_get_results', function () {
 
 // ── PHASE 4 — Deep-check unused images against all site content ───────────────
 
-add_action('wp_ajax_ttr_idt_deep_check_unused', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_idt_deep_check_unused', function () {
+    ttw_ajax_security_check();
     global $wpdb;
 
     $offset     = max( 0, intval( isset( $_POST['offset'] )     ? wp_unslash( $_POST['offset'] )     : 0 ) );
     $batch_size = max( 1, intval( isset( $_POST['batch_size'] ) ? wp_unslash( $_POST['batch_size'] ) : 25 ) );
 
-    $results = ttr_idt_load_results();
+    $results = ttw_idt_load_results();
     if ( empty( $results ) || empty( $results['unused_images'] ) ) {
         wp_send_json_error(['message' => 'No results to deep-check.']);
         return;
@@ -418,15 +418,15 @@ add_action('wp_ajax_ttr_idt_deep_check_unused', function () {
         $att_id  = (int) $item['attachment_id'];
         $att_url = wp_get_attachment_url( $att_id ) ?: '';
 
-        if ( strpos( $att_url, '_ttr_padded_' ) !== false ) {
+        if ( strpos( $att_url, '_ttw_padded_' ) !== false ) {
             $unused[$idx]['deep_checked']         = true;
             $unused[$idx]['referenced_elsewhere'] = true;
-            $unused[$idx]['references']           = [['source' => 'ttr', 'note' => 'TTR-generated padded image — excluded from deletion']];
+            $unused[$idx]['references']           = [['source' => 'ttw', 'note' => 'TTW-generated padded image — excluded from deletion']];
             continue;
         }
 
-        if ( ttr_idt_is_cached( $att_id ) ) {
-            $cached = ttr_idt_load_cache()[(string) $att_id];
+        if ( ttw_idt_is_cached( $att_id ) ) {
+            $cached = ttw_idt_load_cache()[(string) $att_id];
             $unused[$idx]['deep_checked']         = true;
             $unused[$idx]['referenced_elsewhere'] = true;
             $unused[$idx]['references']           = array_merge(
@@ -546,6 +546,12 @@ add_action('wp_ajax_ttr_idt_deep_check_unused', function () {
         $scan_start = microtime( true );
         $timed_out  = false;
 
+        // Use WordPress-aware path references for core directory exclusions.
+        // WPINC is the WordPress constant for the wp-includes folder name.
+        // wp-admin has no dedicated constant so we derive it from ABSPATH.
+        $core_includes_dir = trailingslashit( ABSPATH . WPINC );
+        $core_admin_dir    = trailingslashit( ABSPATH . 'wp-admin' );
+
         foreach ( $scan_dirs as $scan_dir ) {
             if ( $timed_out ) break;
             if ( ! is_dir( $scan_dir ) ) continue;
@@ -565,8 +571,8 @@ add_action('wp_ajax_ttr_idt_deep_check_unused', function () {
                     if ( ! in_array( $ext, ['css', 'html', 'htm', 'php'], true ) ) continue;
 
                     $filepath = $file->getPathname();
-                    if ( strpos( $filepath, ABSPATH . 'wp-includes' ) !== false ) continue;
-                    if ( strpos( $filepath, ABSPATH . 'wp-admin' ) !== false ) continue;
+                    if ( strpos( $filepath, $core_includes_dir ) !== false ) continue;
+                    if ( strpos( $filepath, $core_admin_dir )    !== false ) continue;
 
                     $file_content = @file_get_contents( $filepath );
                     if ( $file_content === false ) continue;
@@ -594,11 +600,11 @@ add_action('wp_ajax_ttr_idt_deep_check_unused', function () {
         $unused[$idx]['references']           = $references;
 
         if ( ! empty( $references ) ) {
-            ttr_idt_add_to_cache( $att_id, $references );
+            ttw_idt_add_to_cache( $att_id, $references );
         }
     }
 
-    ttr_idt_save_results( $results );
+    ttw_idt_save_results( $results );
 
     $processed = $offset + count( $batch );
     wp_send_json_success([
@@ -610,8 +616,8 @@ add_action('wp_ajax_ttr_idt_deep_check_unused', function () {
 
 // ── DELETE SINGLE UNUSED IMAGE ────────────────────────────────────────────────
 
-add_action('wp_ajax_ttr_delete_single_unused_image', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_delete_single_unused_image', function () {
+    ttw_ajax_security_check();
     $att_id = isset( $_POST['attachment_id'] ) ? intval( wp_unslash( $_POST['attachment_id'] ) ) : 0;
     if ( ! $att_id ) { wp_send_json_error(['message' => 'Missing attachment_id']); return; }
 
@@ -644,7 +650,7 @@ add_action('wp_ajax_ttr_delete_single_unused_image', function () {
             $info = pathinfo( $dest );
             $dest = $info['dirname'] . '/' . $att_id . '_' . $info['basename'];
         }
-        ttr_idt_fs()->move( $file, $dest );
+        ttw_idt_fs()->move( $file, $dest );
     }
     wp_trash_post( $att_id );
     wp_send_json_success(['moved' => [$att_id]]);
@@ -652,46 +658,46 @@ add_action('wp_ajax_ttr_delete_single_unused_image', function () {
 
 // ── ADD SINGLE IMAGE TO DEEP-USE CACHE ───────────────────────────────────────
 
-add_action('wp_ajax_ttr_idt_add_to_deep_cache', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_idt_add_to_deep_cache', function () {
+    ttw_ajax_security_check();
     $att_id = isset( $_POST['attachment_id'] ) ? intval( wp_unslash( $_POST['attachment_id'] ) ) : 0;
     if ( ! $att_id ) { wp_send_json_error(['message' => 'Missing attachment_id']); return; }
-    ttr_idt_add_to_cache( $att_id, [['source' => 'manual', 'note' => 'Manually added to deep-use cache']] );
-    wp_send_json_success(['count' => count( ttr_idt_load_cache() )]);
+    ttw_idt_add_to_cache( $att_id, [['source' => 'manual', 'note' => 'Manually added to deep-use cache']] );
+    wp_send_json_success(['count' => count( ttw_idt_load_cache() )]);
 });
 
 // ── GET DEEP-USE CACHE ENTRIES ────────────────────────────────────────────────
 
-add_action('wp_ajax_ttr_idt_get_cache_stats', function () {
-    ttr_ajax_security_check();
-    $cache = ttr_idt_load_cache();
+add_action('wp_ajax_ttw_idt_get_cache_stats', function () {
+    ttw_ajax_security_check();
+    $cache = ttw_idt_load_cache();
     wp_send_json_success([
         'count'   => count( $cache ),
         'entries' => array_values( $cache ),
     ]);
 });
 
-add_action('wp_ajax_ttr_idt_clear_cache', function () {
-    ttr_ajax_security_check();
-    $path = ttr_idt_cache_path();
+add_action('wp_ajax_ttw_idt_clear_cache', function () {
+    ttw_ajax_security_check();
+    $path = ttw_idt_cache_path();
     if ( file_exists( $path ) ) wp_delete_file( $path );
     wp_send_json_success(['message' => 'Deep-use cache cleared.']);
 });
 
-add_action('wp_ajax_ttr_idt_remove_from_cache', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_idt_remove_from_cache', function () {
+    ttw_ajax_security_check();
     $att_id = isset( $_POST['attachment_id'] ) ? intval( wp_unslash( $_POST['attachment_id'] ) ) : 0;
     if ( ! $att_id ) { wp_send_json_error(['message' => 'Missing attachment_id']); return; }
-    $cache = ttr_idt_load_cache();
+    $cache = ttw_idt_load_cache();
     unset( $cache[(string) $att_id] );
-    ttr_idt_save_cache( $cache );
+    ttw_idt_save_cache( $cache );
     wp_send_json_success();
 });
 
 // ── MARK RESULT FIXED ─────────────────────────────────────────────────────────
 
-add_action('wp_ajax_ttr_idt_mark_fixed', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_idt_mark_fixed', function () {
+    ttw_ajax_security_check();
     $type = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : '';
     $key  = isset( $_POST['key'] )  ? sanitize_text_field( wp_unslash( $_POST['key'] ) )  : '';
 
@@ -700,7 +706,7 @@ add_action('wp_ajax_ttr_idt_mark_fixed', function () {
         return;
     }
 
-    $results = ttr_idt_load_results();
+    $results = ttw_idt_load_results();
     if ( empty( $results ) ) {
         wp_send_json_success(); return;
     }
@@ -723,23 +729,23 @@ add_action('wp_ajax_ttr_idt_mark_fixed', function () {
         fn( $item ) => (string) ( $item[$field] ?? '' ) !== (string) $key
     ) );
 
-    ttr_idt_save_results( $results );
+    ttw_idt_save_results( $results );
     wp_send_json_success();
 });
 
 // ── CLEAR ALL RESULTS ─────────────────────────────────────────────────────────
 
-add_action('wp_ajax_ttr_idt_clear_results', function () {
-    ttr_ajax_security_check();
-    $path = ttr_idt_results_path();
+add_action('wp_ajax_ttw_idt_clear_results', function () {
+    ttw_ajax_security_check();
+    $path = ttw_idt_results_path();
     if ( file_exists( $path ) ) wp_delete_file( $path );
     wp_send_json_success();
 });
 
 // ── FIX SAME-PRODUCT DUPLICATES (S1) ─────────────────────────────────────────
 
-add_action('wp_ajax_ttr_fix_same_product_duplicates', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_fix_same_product_duplicates', function () {
+    ttw_ajax_security_check();
     $product_id  = isset( $_POST['product_id'] )  ? intval( wp_unslash( $_POST['product_id'] ) )  : 0;
     $kept_id     = isset( $_POST['kept_id'] )      ? intval( wp_unslash( $_POST['kept_id'] ) )      : 0;
     $deleted_ids = array_map( 'intval', json_decode( stripslashes( $_POST['deleted_ids'] ?? '[]' ), true ) );
@@ -778,8 +784,8 @@ add_action('wp_ajax_ttr_fix_same_product_duplicates', function () {
 
 // ── FIX CROSS-PRODUCT DUPLICATES (S2) ────────────────────────────────────────
 
-add_action('wp_ajax_ttr_fix_cross_product_duplicates', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_fix_cross_product_duplicates', function () {
+    ttw_ajax_security_check();
     $kept_id           = isset( $_POST['kept_id'] )           ? intval( wp_unslash( $_POST['kept_id'] ) )                                                   : 0;
     $duplicate_ids     = array_map( 'intval', json_decode( stripslashes( isset( $_POST['duplicate_ids'] )     ? wp_unslash( $_POST['duplicate_ids'] )     : '[]' ), true ) );
     $affected_products = json_decode( stripslashes( isset( $_POST['affected_products'] ) ? wp_unslash( $_POST['affected_products'] ) : '[]' ), true );
@@ -815,8 +821,8 @@ add_action('wp_ajax_ttr_fix_cross_product_duplicates', function () {
 
 // ── DELETE UNUSED IMAGES (S3) ─────────────────────────────────────────────────
 
-add_action('wp_ajax_ttr_delete_unused_images', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_delete_unused_images', function () {
+    ttw_ajax_security_check();
     $attachment_ids = array_map( 'intval', json_decode( wp_unslash( $_POST['attachment_ids'] ?? '[]' ), true ) );
 
     if ( empty( $attachment_ids ) ) {
@@ -852,7 +858,7 @@ add_action('wp_ajax_ttr_delete_unused_images', function () {
                 $info = pathinfo( $dest );
                 $dest = $info['dirname'] . '/' . $att_id . '_' . $info['basename'];
             }
-            ttr_idt_fs()->move( $file, $dest );
+            ttw_idt_fs()->move( $file, $dest );
         }
         wp_trash_post( $att_id );
         $moved[] = $att_id;
@@ -868,8 +874,8 @@ add_action('wp_ajax_ttr_delete_unused_images', function () {
 
 // ── ZIP ARCHIVE ───────────────────────────────────────────────────────────────
 
-add_action('wp_ajax_ttr_idt_zip_archive', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_idt_zip_archive', function () {
+    ttw_ajax_security_check();
     ob_start();
 
     if ( ! class_exists( 'ZipArchive' ) ) {
@@ -918,9 +924,9 @@ add_action('wp_ajax_ttr_idt_zip_archive', function () {
         RecursiveIteratorIterator::CHILD_FIRST
     );
     foreach ( $dir_files as $f ) {
-        $f->isDir() ? ttr_idt_fs()->rmdir( $f->getPathname(), true ) : wp_delete_file( $f->getPathname() );
+        $f->isDir() ? ttw_idt_fs()->rmdir( $f->getPathname(), true ) : wp_delete_file( $f->getPathname() );
     }
-    ttr_idt_fs()->rmdir( $archive_dir, true );
+    ttw_idt_fs()->rmdir( $archive_dir, true );
 
     ob_end_clean();
     wp_send_json_success([
@@ -933,8 +939,8 @@ add_action('wp_ajax_ttr_idt_zip_archive', function () {
 
 // ── DELETE ZIP ────────────────────────────────────────────────────────────────
 
-add_action('wp_ajax_ttr_idt_delete_zip', function () {
-    ttr_ajax_security_check();
+add_action('wp_ajax_ttw_idt_delete_zip', function () {
+    ttw_ajax_security_check();
     ob_start();
     $zip_name = isset( $_POST['zip_name'] ) ? sanitize_file_name( wp_unslash( $_POST['zip_name'] ) ) : '';
 

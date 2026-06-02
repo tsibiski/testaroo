@@ -81,6 +81,12 @@ Automatically replaces encoded HTML entities (e.g. `&amp;`, `&#39;`, `&quot;`) w
 
 Each fixer can be toggled to run automatically whenever a product is saved in WooCommerce, keeping your catalog clean without requiring manual intervention.
 
+== External services ==
+
+This plugin OPTIONALLY connects to an API, https://tavily.com/. It is only used in the Batch Run Test to find product images online for products lacking any images.
+
+It is a free service (up to 1000 api calls a month per api key) that Testaroo leverages to take your provided product search term, returning up to 10 images to present to you. You may then select one or more images to automatically attach to your product. It is just a great simplification of the process of finding product images, and is only used by and only required for the "Find Product Image" search tool, accessible from product errors reported by the Batch Test Run tool.
+
 == Installation ==
 
 1. Upload the `testaroo` folder to the `/wp-content/plugins/` directory, or install directly through the WordPress plugin screen.
