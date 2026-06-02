@@ -81,6 +81,10 @@ Automatically replaces encoded HTML entities (e.g. `&amp;`, `&#39;`, `&quot;`) w
 
 Each fixer can be toggled to run automatically whenever a product is saved in WooCommerce, keeping your catalog clean without requiring manual intervention.
 
+== Requirements ==
+
+WooCommerce is needed for all "Fixers tools", and the Batch Run Test "Testers" tool. Additionally, phases 1-3 of the Duplicate & Unused Image Check tool also report on WooCommerce products. However, phase 4 of 4 of this tool checks for ANY unused images, wherever it may be in the system, meaning that WooCommerce is not a dependency for this check. Also, future Playwright related tools do not have a dependency on WooCommerce.
+
 == External services ==
 
 This plugin OPTIONALLY connects to an API, https://tavily.com/. It is only used in the Batch Run Test to find product images online for products lacking any images.

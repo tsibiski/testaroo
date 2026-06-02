@@ -776,7 +776,7 @@ add_action('wp_ajax_ttw_fix_same_product_duplicates', function () {
 
     if ( $thumb_id !== $kept_id && ! in_array( $kept_id, $gallery_ids, true ) ) $gallery_ids[] = $kept_id;
     update_post_meta( $product_id, '_product_image_gallery', implode( ',', array_filter( $gallery_ids ) ) );
-    wc_delete_product_transients( $product_id );
+    if ( function_exists( 'wc_delete_product_transients' ) ) wc_delete_product_transients( $product_id );
     clean_post_cache( $product_id );
 
     wp_send_json_success(['message' => 'Duplicates removed from product.']);
@@ -808,7 +808,7 @@ add_action('wp_ajax_ttw_fix_cross_product_duplicates', function () {
         $gallery_ids = array_values( array_filter( $gallery_ids, fn( $id ) => ! in_array( $id, $duplicate_ids, true ) ) );
         if ( ! in_array( $kept_id, $gallery_ids, true ) && $thumb_id !== $kept_id ) $gallery_ids[] = $kept_id;
         update_post_meta( $pid, '_product_image_gallery', implode( ',', array_filter( $gallery_ids ) ) );
-        wc_delete_product_transients( $pid );
+        if ( function_exists( 'wc_delete_product_transients' ) ) wc_delete_product_transients( $pid );
         clean_post_cache( $pid );
     }
 
