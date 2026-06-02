@@ -4,7 +4,7 @@ var rotation = 0;
 var inProgress = false;
 var stopExecution = false;
 
-async function test_the_woo_qa_product_analysis_run_batch(isInit, continueAtThisOffset) {
+async function testaroo_qa_product_analysis_run_batch(isInit, continueAtThisOffset) {
     if(!isInit && stopExecution) {
         inProgress = false;
         return;
@@ -87,7 +87,7 @@ async function test_the_woo_qa_product_analysis_run_batch(isInit, continueAtThis
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             body: new URLSearchParams({
-                action: "test_the_woo_batch",
+                action: "testaroo_batch",
                 nonce: TTR.nonce,
                 limit: limit,
                 offset: offset
@@ -120,7 +120,7 @@ async function test_the_woo_qa_product_analysis_run_batch(isInit, continueAtThis
            let data = GenerateHtmlAndJson(item); 
            resultsTable.insertAdjacentHTML('beforeend', data.html);
            const formData = new FormData(); 
-           formData.append('action', 'test_the_woo_append_result'); 
+           formData.append('action', 'testaroo_append_result'); 
 		   formData.append('nonce', TTR.nonce);
            formData.append('data', data.json); 
            fetch(TTR.ajaxUrl, { method: 'POST', body: formData, }); } 
@@ -128,7 +128,7 @@ async function test_the_woo_qa_product_analysis_run_batch(isInit, continueAtThis
     
     if (offset < parseInt(data.total)) 
 	{
-        await test_the_woo_qa_product_analysis_run_batch(false); 
+        await testaroo_qa_product_analysis_run_batch(false); 
 	}
     else 
 	{
@@ -742,7 +742,7 @@ async function attachExternalImageToProduct(e)
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams({
-                action: "test_the_woo_remove_result",
+                action: "testaroo_remove_result",
                 nonce: TTR.nonce,
                 product_id: product_id
             })
@@ -801,7 +801,7 @@ async function TestarooFixImage(productId, productName, imageUrl, thisButton, pr
             "Content-Type": "application/x-www-form-urlencoded"
         },
         body: new URLSearchParams({
-            action: "test_the_woo_try_fix_image",
+            action: "testaroo_try_fix_image",
                 nonce: TTR.nonce,
             product_id: productId,
             image_url: imageUrl
@@ -849,7 +849,7 @@ async function TestarooUpscaleImage(productId, attachment_id, thisButton) {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({
-            action:        'test_the_woo_upscale_image',
+            action:        'testaroo_upscale_image',
                 nonce: TTR.nonce,
             product_id:    productId,
             attachment_id:     attachment_id,
@@ -1658,7 +1658,7 @@ async function ttrEditorConfirm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({
-            action:     'test_the_woo_remove_result',
+            action:     'testaroo_remove_result',
                 nonce: TTR.nonce,
             product_id: productId,
         })
@@ -1704,7 +1704,7 @@ async function ttrPromoteGalleryImage(productId, attachmentId, btn) {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({
-            action:     'test_the_woo_remove_result',
+            action:     'testaroo_remove_result',
                 nonce: TTR.nonce,
             product_id: productId,
         })
@@ -1730,18 +1730,23 @@ function ClearBatchRun() {
 
 document.addEventListener("DOMContentLoaded", function () {
       waitForElementToExist('#massTryFixBrokenImages_Calls').then(() => {
+        elTryFixAllBrokenImagesRegion().style.display   = 'none';
+        elTryFixAllTooSmallImagesRegion().style.display = 'none';
+        elTryFixAllPromoteGalleryRegion().style.display = 'none';
+
         waitForElementToExist('#massTryFixTooSmallImages_Calls').then(() => {
             fetch(TTR.ajaxUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams({
-                    action: 'test_the_woo_get_results',
+                    action: 'testaroo_get_results',
                     nonce:  TTR.nonce,
                 })
             })
             .then(r => r.json())
             .then(data => {
-                if (!data.success || !data.data || !data.data.results || data.data.results.length === 0) return;
+                if (!data.success || !data.data || !data.data.results || data.data.results.length === 0) 
+                    return;
  
                 const mergedItems = buildResultsHtml(data.data.results.slice().reverse());
  

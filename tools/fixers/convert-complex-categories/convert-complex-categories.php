@@ -18,7 +18,7 @@ add_action('wp_ajax_ttr_run_category_conversion_complex', function () {
     $scenarios = $fixers_settings['fixComplexCategoryMappings'] ?? [];
 
     if (empty($scenarios)) {
-        wp_send_json_error('No complex category scenarios configured. Please add scenarios in the Fix The Woo tab.');
+        wp_send_json_error('No complex category scenarios configured. Please add scenarios in the Fixers tab.');
         return;
     }
 

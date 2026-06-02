@@ -4,4 +4,4 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 // Remove transients
-delete_transient( 'thetestwoo_product_processed_count' );
+delete_transient( 'testaroo_product_processed_count' );

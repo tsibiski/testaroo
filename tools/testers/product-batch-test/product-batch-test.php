@@ -30,7 +30,7 @@ add_action('admin_enqueue_scripts', function ($hook) {
         $jsonResults = array_map(function($line) { return json_decode($line, true); }, $lines);
     }
     
-    $previousRunCount = (int) get_transient('thetestwoo_product_processed_count');
+    $previousRunCount = (int) get_transient('testaroo_product_processed_count');
     $batch_settings    = ttr_product_batch_test_get_settings();
 
     wp_localize_script('product-batch-test-js', 'BATCH', [
@@ -41,7 +41,7 @@ add_action('admin_enqueue_scripts', function ($hook) {
     ]);
 });
 
-add_action('wp_ajax_test_the_woo_clear_file', function () {
+add_action('wp_ajax_testaroo_clear_file', function () {
     ttr_ajax_security_check();
     $file_path = ttr_batch_results_path();
     wp_mkdir_p( dirname( $file_path ) );
@@ -51,11 +51,11 @@ add_action('wp_ajax_test_the_woo_clear_file', function () {
         WP_Filesystem();
     }
     $wp_filesystem->put_contents( $file_path, '', FS_CHMOD_FILE );
-    set_transient('thetestwoo_product_processed_count', 0);
+    set_transient('testaroo_product_processed_count', 0);
     wp_send_json(['status' => 'cleared']);
 });
 
-add_action('wp_ajax_test_the_woo_append_result', function () {
+add_action('wp_ajax_testaroo_append_result', function () {
     ttr_ajax_security_check();
     $raw     = $_POST['data'] ?? '';
     $decoded = json_decode(stripslashes($raw), true);
@@ -72,7 +72,7 @@ add_action('wp_ajax_test_the_woo_append_result', function () {
     wp_send_json(['status' => 'saved']);
 });
 
-add_action('wp_ajax_test_the_woo_remove_result', function () {
+add_action('wp_ajax_testaroo_remove_result', function () {
     ttr_ajax_security_check();
     $product_id = intval($_POST['product_id'] ?? 0);
 
@@ -386,7 +386,7 @@ add_action('wp_ajax_ttr_save_ignored_products', function () {
 /* 
     Test that all products have proper categories, valid images/links, and are storing the correct permalink.
 */
-add_action('wp_ajax_test_the_woo_batch', function () {
+add_action('wp_ajax_testaroo_batch', function () {
     ttr_ajax_security_check();
 
     $settings = ttr_product_batch_test_get_settings();
@@ -607,7 +607,7 @@ add_action('wp_ajax_test_the_woo_batch', function () {
     }
 
     $total = wp_count_posts('product')->publish;
-    set_transient('thetestwoo_product_processed_count', $offset + count($products));
+    set_transient('testaroo_product_processed_count', $offset + count($products));
 
     wp_send_json([
         'batch_size' => count($products),
@@ -618,7 +618,7 @@ add_action('wp_ajax_test_the_woo_batch', function () {
 });
 
 
-add_action('wp_ajax_test_the_woo_ignore_product', function () {
+add_action('wp_ajax_testaroo_ignore_product', function () {
     ttr_ajax_security_check();
     $product_id = intval($_POST['product_id'] ?? 0);
 
@@ -644,7 +644,7 @@ add_action('wp_ajax_test_the_woo_ignore_product', function () {
     This cannot solve a completely missing image.
     It searches the DB for incorrectly-located images containing the partial image name, sans content cut off by provided character (which is meant to indicate the beginning of some image size indicated in the name).
 */
-add_action('wp_ajax_test_the_woo_try_fix_image', function () {
+add_action('wp_ajax_testaroo_try_fix_image', function () {
     ttr_ajax_security_check();
     $product_id = intval($_POST['product_id'] ?? 0);
     $image_url  = $_POST['image_url'] ?? '';
@@ -871,7 +871,7 @@ add_action('wp_ajax_ttr_remove_broken_image_reference', function () {
     The padded version is added to the gallery and shown on the single product page
     via the woocommerce_product_get_image_id filter in the main plugin file.
 */
-add_action('wp_ajax_test_the_woo_upscale_image', function () {
+add_action('wp_ajax_testaroo_upscale_image', function () {
     ttr_ajax_security_check();
     $product_id    = intval($_POST['product_id']    ?? 0);
     $attachment_id = intval($_POST['attachment_id'] ?? 0);
@@ -1183,7 +1183,7 @@ add_action('wp_ajax_ttr_promote_gallery_image', function() {
     ]);
 });
 
-add_action('wp_ajax_test_the_woo_get_results', function () {
+add_action('wp_ajax_testaroo_get_results', function () {
     ttr_ajax_security_check();
     $file_path   = ttr_batch_results_path();
     $jsonResults = [];

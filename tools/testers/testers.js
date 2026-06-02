@@ -106,7 +106,7 @@ function initTestersTab() {
         elsTtwPagination().forEach(el => el.remove());
         await ClearBatchRunFile();
         ClearBatchRun();
-        test_the_woo_qa_product_analysis_run_batch(true, 0);
+        testaroo_qa_product_analysis_run_batch(true, 0);
         elNewScan().style.display      = 'none';
         elContinueScan().style.display = 'none';
         elStop().style.display      = 'display:inline-block;';
@@ -121,7 +121,7 @@ function initTestersTab() {
         event.preventDefault();
         if(inProgress)
             return;
-        test_the_woo_qa_product_analysis_run_batch(true, previousRunCount);
+        testaroo_qa_product_analysis_run_batch(true, previousRunCount);
         elContinueScan().style.display = 'none';
         elNewScan().style.display      = 'none';
         elStop().style.display      = 'display:inline-block;';
@@ -243,7 +243,7 @@ async function ClearBatchRunFile()
         await fetch(TTR.ajaxUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({ action: 'test_the_woo_clear_file', nonce: TTR.nonce })
+            body: new URLSearchParams({ action: 'testaroo_clear_file', nonce: TTR.nonce })
         });
     } catch (e) {}
 }

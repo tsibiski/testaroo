@@ -18,11 +18,15 @@ define( 'TTR_OPTION_TOOLS_SETTINGS', 'ttr_tools_settings' );
 // ── Settings (settings.json → wp_options) ── 
 
 function ttr_get_settings(): array {
+    wp_cache_delete( TTR_OPTION_SETTINGS, 'options' );
     return (array) get_option( TTR_OPTION_SETTINGS, [] );
 }
 
 function ttr_save_settings( array $settings ): bool {
-    return update_option( TTR_OPTION_SETTINGS, $settings, false );
+    wp_cache_delete( TTR_OPTION_SETTINGS, 'options' );
+    $result = update_option( TTR_OPTION_SETTINGS, $settings, false );
+    wp_cache_delete( TTR_OPTION_SETTINGS, 'options' );
+    return $result;
 }
 
 function ttr_get_setting( string $key, $default = null ) {
@@ -38,11 +42,15 @@ function ttr_save_setting_key( string $key, $value ): bool {
 // ── Tools settings (tools-settings.json → wp_options) ── 
 
 function ttr_get_tools_settings(): array {
+    wp_cache_delete( TTR_OPTION_TOOLS_SETTINGS, 'options' );
     return (array) get_option( TTR_OPTION_TOOLS_SETTINGS, [] );
 }
 
 function ttr_save_tools_settings( array $settings ): bool {
-    return update_option( TTR_OPTION_TOOLS_SETTINGS, $settings, false );
+    wp_cache_delete( TTR_OPTION_TOOLS_SETTINGS, 'options' );
+    $result = update_option( TTR_OPTION_TOOLS_SETTINGS, $settings, false );
+    wp_cache_delete( TTR_OPTION_TOOLS_SETTINGS, 'options' );
+    return $result;
 }
 
 function ttr_save_tools_setting_key( string $key, $value ): bool {

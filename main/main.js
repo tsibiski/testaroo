@@ -15,7 +15,7 @@ const elTtwBlImageReasonInput   = () => document.getElementById('ttr-bl-image-re
 const elTtwBlImageAddStatus     = () => document.getElementById('ttr-bl-image-add-status');
 const elTtwTavilyKeyInput       = () => document.getElementById('ttr-tavily-key-input');
 const elTtwSearchSitesTable     = () => document.getElementById('ttr-search-sites-table');
-const elTestarooContent       = () => document.getElementById('testaroo-content');
+const elTestarooContent       = () => document.getElementById('testers-content');
 const elsTtwSearchSiteRows      = () => document.querySelectorAll('#ttr-search-sites-table .ttr-search-site-row');
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -40,33 +40,33 @@ document.addEventListener('DOMContentLoaded', function() {
     AutoFixMissingThumbnail.init(settings.autoFixMissingThumbnail ?? false);
 });
 
-const wooTabName_Main = 'main-woo';
-const wooTabName_Testers = 'testaroo';
-const wooTabName_Fixers = 'fix-the-woo';
-const wooTabName_TestTools = 'tool-the-woo';
-const wooTabName_QAAutomation = 'automate-the-woo';
+const tabName_Main = 'main';
+const tabName_Testers = 'testers';
+const tabName_Fixers = 'fixers';
+const tabName_TestTools = 'qa-tools';
+const tabName_QAAutomation = 'automation-tools';
 
-var wooShown = wooTabName_Main;
-function ShowWoo(whichWoo) {
-    wooShown = whichWoo;
+var tabShown = tabName_Main;
+function ShowTab(whichTab) {
+    tabShown = whichTab;
     // Hide all content panels
-    document.getElementById(wooTabName_Main + '-content').style.display    = 'none';
-    document.getElementById(wooTabName_Testers + '-content').style.display = 'none';
-    document.getElementById(wooTabName_Fixers + '-content').style.display  = 'none';
-    document.getElementById(wooTabName_TestTools + '-content').style.display  = 'none';
-    document.getElementById(wooTabName_QAAutomation + '-content').style.display  = 'none';
+    document.getElementById(tabName_Main + '-content').style.display    = 'none';
+    document.getElementById(tabName_Testers + '-content').style.display = 'none';
+    document.getElementById(tabName_Fixers + '-content').style.display  = 'none';
+    document.getElementById(tabName_TestTools + '-content').style.display  = 'none';
+    document.getElementById(tabName_QAAutomation + '-content').style.display  = 'none';
     
     // Deselect all tabs
-    document.getElementById(wooTabName_Main + '-tab').classList.remove('selected');
-    document.getElementById(wooTabName_Testers + '-tab').classList.remove('selected');
-    document.getElementById(wooTabName_Fixers + '-tab').classList.remove('selected');
-    document.getElementById(wooTabName_TestTools + '-tab').classList.remove('selected');
-    document.getElementById(wooTabName_QAAutomation + '-tab').classList.remove('selected');
+    document.getElementById(tabName_Main + '-tab').classList.remove('selected');
+    document.getElementById(tabName_Testers + '-tab').classList.remove('selected');
+    document.getElementById(tabName_Fixers + '-tab').classList.remove('selected');
+    document.getElementById(tabName_TestTools + '-tab').classList.remove('selected');
+    document.getElementById(tabName_QAAutomation + '-tab').classList.remove('selected');
     
     // Select clicked tab
-    document.getElementById(`${whichWoo}-tab`).classList.add('selected');
+    document.getElementById(`${whichTab}-tab`).classList.add('selected');
 
-    const contentDiv = document.getElementById(`${whichWoo}-content`);
+    const contentDiv = document.getElementById(`${whichTab}-content`);
     if (!contentDiv) return;
 
     // Show the panel
@@ -79,12 +79,12 @@ function ShowWoo(whichWoo) {
 
         // Map tab id → server-side tab slug
         const tabSlugMap = {
-            'testaroo': 'testers',
-            'fix-the-woo':  'fixers',
-            'tool-the-woo':  'qa_tools',
-            'automate-the-woo':  'qa_automation',
+            'testers': 'testers',
+            'fixers':  'fixers',
+            'qa-tools':  'qa_tools',
+            'automation-tools':  'qa_automation',
         };
-        const tabSlug = tabSlugMap[whichWoo];
+        const tabSlug = tabSlugMap[whichTab];
 
         if (!tabSlug) {
             contentDiv.innerHTML = '<p>Tab not found.</p>';
@@ -106,13 +106,13 @@ function ShowWoo(whichWoo) {
             contentDiv.dataset.loaded = 'true';
 
             const inits = {
-                'testaroo': initTestersTab,
-                'fix-the-woo':  initFixersTab,
-                'tool-the-woo':  initTestToolsTab,
-                'automate-the-woo':  initQAAutomationTab,
+                'testers': initTestersTab,
+                'fixers':  initFixersTab,
+                'qa-tools':  initTestToolsTab,
+                'automation-tools':  initQAAutomationTab,
             };
-            if (typeof inits[whichWoo] === 'function') {
-                inits[whichWoo]();
+            if (typeof inits[whichTab] === 'function') {
+                inits[whichTab]();
             }
         })
         .catch(err => {
@@ -377,7 +377,7 @@ function ttrBlacklistRenderEntries() {
             html += '<div class="ttr-bl-thumb ttr-bl-thumb-empty" style="display:flex;align-items:center;justify-content:center;font-size:18px;color:#555;">*</div>';
             html += '<div class="ttr-bl-row-info">';
             html += '<span style="font-size:12px;color:#e8e8e8;font-style:italic;">*' + pattern + '*</span>';
-            html += '<div style="font-size:10px;color:#555;">Any image URL or filename containing this substring</div>';
+            html += '<div style="font-size:10px;color:#555;">Any image URL or filename containing this substring (case insensitive)</div>';
             if (reason) html += '<div class="ttr-bl-lists">' + reason + '</div>';
             html += '</div>';
             html += '<div class="ttr-bl-row-actions">';

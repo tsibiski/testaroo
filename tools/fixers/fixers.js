@@ -10,7 +10,7 @@ function initFixersTab() {
 
     // If both managers are populated (seeded from TTR.* at boot), initialize immediately.
     // Otherwise kick off AJAX loads and wait — this is the fallback for edge cases only.
-    if (Object.keys(fs).length > 0 || Object.keys(s).length > 0) {
+    if (Object.keys(fs).length > 0) {
         FixSimpleCategoryMappings.init(fs.fixSimpleCategoryMappings ?? []);
         FixComplexCategoryMappings.init(fs.fixComplexCategoryMappings ?? []);
         AutoFixSimpleCategoryMappings.init(fs.autoFixSimpleCategoryMappings ?? false);

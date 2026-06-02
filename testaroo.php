@@ -11,7 +11,7 @@ if (!function_exists('ttr_ajax_security_check')) {
 
 /**
  * Plugin Name:             Testaroo
- * Plugin URI:              https://github.com/tsibiski/Test-The-Woo
+ * Plugin URI:              https://github.com/tsibiski/testaroo
  * Description:             WooCommerce product integrity testing tool.
  * Version:                 1.0
  * Author:                  Tim Sibiski
@@ -44,7 +44,7 @@ add_action('admin_menu', function () {
         'Testaroo',
         'manage_options',
         'testaroo',
-        'test_the_woo_tool',
+        'testaroo_tool',
         'dashicons-search',
         56
     );
@@ -229,22 +229,22 @@ add_action('wp_ajax_ttr_save_tools_setting', function() {
 });
 
 // Main page 
-function test_the_woo_tool() {
+function testaroo_tool() {
 ?>
     <div class="ttr-page" style="font-family:'DM Mono',monospace;color:#e8e4dc;">
     <div class='background-color-padding'></div>
     <h1 class="ttr-title">Testaroo</h1>
 
     <div role="tablist" aria-label="Tabs" class="tab-list">
-        <button id="main-woo-tab" role="tab" aria-selected="true"  class="tab-title selected" onclick="ShowWoo('main-woo');">Info</button>
-        <button id="testaroo-tab" role="tab" aria-selected="false" class="tab-title" onclick="ShowWoo('testaroo');">Testaroo</button>
-        <button id="fix-the-woo-tab" role="tab" aria-selected="false" class="tab-title" onclick="ShowWoo('fix-the-woo');">Fix The Woo</button>
-        <button id="tool-the-woo-tab" role="tab" aria-selected="false" class="tab-title" onclick="ShowWoo('tool-the-woo');">Test Tools<div class='wip-tag'>WIP</div></button>
-        <button id="automate-the-woo-tab" role="tab" aria-selected="false" class="tab-title" onclick="ShowWoo('automate-the-woo');">QA Automation<div class='wip-tag'>WIP</div></button>         
+        <button id="main-tab" role="tab" aria-selected="true"  class="tab-title selected" onclick="ShowTab('main');">Info</button>
+        <button id="testers-tab" role="tab" aria-selected="false" class="tab-title" onclick="ShowTab('testers');">Testers</button>
+        <button id="fixers-tab" role="tab" aria-selected="false" class="tab-title" onclick="ShowTab('fixers');">Fixers</button>
+        <button id="qa-tools-tab" role="tab" aria-selected="false" class="tab-title" onclick="ShowTab('qa-tools');">Test Tools<div class='wip-tag'>WIP</div></button>
+        <button id="automation-tools-tab" role="tab" aria-selected="false" class="tab-title" onclick="ShowTab('automation-tools');">QA Automation<div class='wip-tag'>WIP</div></button>
     </div>
 
     <div class="tab-wrapper">
-        <div id="main-woo-content" data-loaded="true">
+        <div id="main-content" data-loaded="true">
             <!-- ── Documentation ── -->
             <p>This is a testing suite that has various useful tools that test products, their images, categories, attributes (and more)
                for errors and mistakes. Some issues can automatically be corrected with a click of a button.</p>
@@ -437,10 +437,10 @@ function test_the_woo_tool() {
                </div>
            </div>
         </div>
-        <div id="testaroo-content" data-loaded="false" style="display:none;"></div>
-        <div id="fix-the-woo-content" data-loaded="false" style="display:none;"></div>
-        <div id="tool-the-woo-content" data-loaded="false" style="display:none;"></div>
-        <div id="automate-the-woo-content" data-loaded="false" style="display:none;"></div>   
+        <div id="testers-content" data-loaded="false" style="display:none;"></div>
+        <div id="fixers-content" data-loaded="false" style="display:none;"></div>
+        <div id="qa-tools-content" data-loaded="false" style="display:none;"></div>
+        <div id="automation-tools-content" data-loaded="false" style="display:none;"></div>   
     </div>
 <?php
 }

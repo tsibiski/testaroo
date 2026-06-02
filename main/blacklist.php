@@ -96,7 +96,7 @@ function ttr_is_image_blacklisted(int $attachment_id): bool {
     foreach ($patterns as $entry) {
         $pattern = $entry['pattern'] ?? '';
         if ($pattern === '') continue;
-        if (strpos($url, $pattern) !== false || strpos($name, $pattern) !== false) {
+        if (stripos($url, $pattern) !== false || stripos($name, $pattern) !== false) {
             return true;
         }
     }
@@ -110,7 +110,7 @@ function ttr_is_url_pattern_blacklisted(string $url): bool {
     foreach ($patterns as $entry) {
         $pattern = $entry['pattern'] ?? '';
         if ($pattern === '' ) continue;
-        if (strpos($url, $pattern) !== false || strpos($name, $pattern) !== false) {
+        if (stripos($url, $pattern) !== false || stripos($name, $pattern) !== false) {
             return true;
         }
     }
