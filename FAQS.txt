@@ -1,0 +1,53 @@
+# Frequently Asked Questions
+
+## Will this plugin modify my storefront?
+
+The one any only aspect of TTR that affects the storefront is the use of padded images. Padded images do not delete the old image, and they do not change the status of the existing image as a "hero" image. However, a javascript snippet will detect their existance, and automatically focus past the "too small" image onto the padded image when the product loads. This avoids the stretched and pixelated smaller image being presented to the customer by default.
+
+---
+
+## Can I undo changes?
+
+Some actions can be reversed manually. TTR offers a backup zip for bulk deletion of images flagged as unused after mass deletion.
+
+Always create a backup before running bulk operations - at least until you trust the operations performed by TTR given your specific website and WooCommerce ecosytem.
+
+---
+
+## Can I use this on a large catalog?
+
+Yes. TTR was originally designed as a tool to service a website with nearly 60 thousand products.
+
+However, stores with tens of thousands of products may require longer processing times.
+
+---
+
+## If I select the automated options for each fixer, do I ever need to manually run these testers and fixers again?
+
+If you select all of the settings that allow for automatic fixing of issues when products are edited or inserted, then you do not need to manually run these tools again - in theory. It is good to double check once in a while to make sure it is behaving as expected, though.
+
+But to find duplicate images, or unused images, you must always manually run the tool. There is no cron job functionality within TTR at this time. The same applied to Batch Test Runs that detect missing images, and allow you to search for and apply new images. That will always require manual human input on a product by product basis.
+
+---
+
+## Is WooCommerce required?
+
+Yes, for all features save the "Work In Progress" Playwright and Test Tools. Those will be agnostic to any dependencies other than WordPress, PHP, Javascript, and the Playwright framework (and dependencies that Playwright w/ JS require).
+
+Testaroo "Testers" and "Fixers" are designed specifically for WooCommerce product data.
+
+---
+
+## Is internet access required?
+
+Only features that retrieve or verify external image sources require internet access.
+
+Most maintenance functions operate entirely within WordPress and WooCommerce.
+
+---
+
+## Where can I get support?
+
+Please consult the plugin documentation first.
+
+If you need additional assistance, contact support using Testaroo.TTR@gmail.com, or the WordPress TTR plugin forum.

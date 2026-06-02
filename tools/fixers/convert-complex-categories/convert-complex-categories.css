@@ -1,0 +1,188 @@
+.convert-categories-info {
+    font-size: 13px;
+    color: var(--ttr-muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    font-family: 'DM Mono', monospace;
+}
+
+.conversion-result {
+    padding: 20px 0 50px 20px;
+    display: none;
+}
+
+/* ── All buttons in settings ── */
+.settings-category-mapping button,
+.add-mapping-button,
+.delete-mapping-button,
+.update-mapping-button {
+    padding: 6px 14px;
+    border-radius: var(--ttr-radius);
+    border: 1px solid var(--ttr-border);
+    background: var(--ttr-surface);
+    color: var(--ttr-text);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s;
+}
+
+.update-mapping-button {
+    margin: 5px 0 5px 8px !important;
+}
+
+.complex-scenario-body .update-mapping-button {
+    margin: 20px 0 20px 0 !important;
+}
+
+.add-mapping-button {
+    border-color: var(--ttr-accent) !important;
+    color: var(--ttr-accent) !important;
+    background: transparent !important;
+}
+
+.add-mapping-button:hover {
+    background: var(--ttr-accent) !important;
+    color: #0e0e0f !important;
+}
+
+.update-mapping-button {
+    border-color: var(--ttr-success) !important;
+    color: var(--ttr-success) !important;
+    background: transparent !important;
+    margin-left: 8px;
+}
+
+.update-mapping-button:hover {
+    background: var(--ttr-success) !important;
+    color: #0e0e0f !important;
+}
+
+.delete-mapping-button {
+    border-color: var(--ttr-danger) !important;
+    color: var(--ttr-danger) !important;
+    background: transparent !important;
+    margin-left: 4px;
+}
+
+.delete-mapping-button:hover {
+    background: var(--ttr-danger) !important;
+    color: #fff !important;
+}
+
+.new-setting-mapping,
+.existing-setting-mapping {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.new-setting-mapping input {
+    box-shadow: none !important;
+}
+
+.add-new-setting-mapping-region {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Complex scenario form ───────────────────────────────── */
+
+h3 {
+    color: #a8a8a8 !important;
+}
+
+.complex-scenario-form,
+.complex-scenario-body {
+    padding: 10px 0;
+    margin-left: 25px
+}
+
+.complex-scenario-field {
+    margin: 20px 0 20px 0;
+}
+
+.complex-scenario-field div {
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+.complex-scenario-field span {
+    display: block;
+    font-style: italic;
+    font-size: 11px;
+}
+
+.complex-scenario-fields {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+}
+
+.complex-scenario-fields label {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    color: var(--ttr-muted, #aaa);
+    gap: 3px;
+}
+
+/* Exact-match checkbox row spans full width */
+.complex-scenario-fields label:nth-child(3) {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: inherit;
+}
+
+.complex-field {
+    background: #1a1a1a;
+    border: 1px solid #444;
+    color: #e8e4dc;
+    padding: 4px 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    border-radius: 3px;
+    min-width: 400px;
+}
+
+.complex-field:focus {
+    outline: none;
+    border-color: #888;
+}
+
+/* Existing scenario rows */
+.complex-scenario-row {
+    margin-bottom: 6px;
+    border: 1px solid #333;
+    border-radius: 4px;
+}
+
+.complex-scenario-details {
+    width: 100%;
+}
+
+.complex-scenario-summary {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    cursor: pointer;
+    user-select: none;
+    background: #1e1e1e;
+    border-radius: 4px;
+    font-size: 13px;
+    list-style: none;
+}
+
+.complex-scenario-summary::-webkit-details-marker { display: none; }
+
+.complex-scenario-body {
+    padding: 10px;
+    background: #161616;
+    border-top: 1px solid #333;
+}

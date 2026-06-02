@@ -1,0 +1,228 @@
+/* ── Tool card buttons (Fixers / Testers) ── */
+
+.bulk-fix-in-progress-message {
+    top: 35%;
+    position: relative; 
+}
+
+.button-fixer-tester {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 150px;
+    cursor: pointer;
+    border-radius: var(--ttr-radius);
+    margin-top: 16px;
+    border: 1px solid var(--ttr-border);
+    background: var(--ttr-bg);
+    overflow: hidden;
+    transition: border-color .18s ease;
+    padding: 0;
+}
+
+.button-fixer-tester:hover {
+    border-color: var(--ttr-accent);
+}
+
+.button-fixer-tester button {
+    display: inline-block;
+}
+
+.link-qa-notice button {
+    cursor: pointer;
+    border: 1px solid var(--ttr-accent);
+    border-radius: var(--ttr-radius);
+    padding: 5px 12px;
+    margin-left: 10px;
+    background: var(--ttr-accent);
+    color: #0e0e0f;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background .15s, color .15s;
+}
+
+.link-qa-notice button:hover {
+    background: transparent;
+    color: var(--ttr-accent);
+}
+
+.button-fixer-tester-name span {
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.button-fixer-tester-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    transition: transform 0.8s ease;
+    z-index: 1;
+    position: relative;
+    background: linear-gradient(135deg, #1a1710 0%, #22200f 100%);
+    color: var(--ttr-accent);
+    border-right: 1px solid var(--ttr-border);
+    display: flex;
+    width: 25%;
+    padding: 0 16px;
+}
+
+.button-fixer-tester-description {
+    overflow: hidden;
+    transition: opacity 0.2s ease;
+    z-index: 0;
+    position: relative;
+    background: var(--ttr-bg);
+    color: var(--ttr-text);
+    height: 100%;
+    width: 75%;
+    padding: 0;
+}
+
+.button-fixer-tester-description span {
+    display: inline-block;
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    padding: 0 20px;
+    width: 280px;
+    flex-shrink: 0;
+    vertical-align: top;
+    padding-top: 40px;
+}
+
+.button-fixer-tester-description ul {
+    list-style: disc;
+    display: inline-block;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    color: var(--ttr-muted);
+    padding-left: 20px;
+}
+
+.button-fixer-tester-description li {
+    margin-bottom: 4px;
+    line-height: 1.5;
+}
+
+.button-fixer-tester-description p {
+    padding: 12px 20px;
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    color: var(--ttr-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ── Expanded options panel ── */
+.button-fixer-tester-selected-options {
+    padding-left: 20px;
+    transition: opacity 0.6s ease;
+    opacity: 0;
+    z-index: 0;
+    background: var(--ttr-surface);
+    position: absolute;
+    margin: 0;
+    transform: translateX(26%);
+    top: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    border-left: 1px solid var(--ttr-border);
+}
+
+.button-fixer-tester-selected-options.many-options {
+    display: inline-block !important;
+}
+
+.button-fixer-tester-selected-options div {
+    display: inline-block;
+}
+
+.button-fixer-tester-selected-options button {
+    background: transparent;
+    color: var(--ttr-accent);
+    border: 1px solid var(--ttr-accent);
+    border-radius: var(--ttr-radius);
+    padding: 7px 16px;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background .15s, color .15s;
+}
+
+.many-options div {
+    margin: 6px;
+}
+
+.button-fixer-tester-selected-options button:hover {
+    background: var(--ttr-accent);
+    color: #0e0e0f;
+}
+
+/* Active / expanded states */
+.button-fixer-tester-name.active {
+    transform: translateX(275%);
+}
+
+.button-fixer-tester-description.active {
+    opacity: 0;
+}
+
+.button-fixer-tester-selected-options.active {
+    opacity: 1;
+    transform: translateX(0%);
+}
+
+.complex-add-attr-button, .complex-remove-attr-button {
+    cursor: pointer;
+    margin: 10px 0 10px 0;
+    color: black;
+    background: var(--ttr-accent) !important;
+    border-radius: 6px;
+    padding: 5px;
+}
+
+.complex-remove-attr-button {
+    padding: 2px 5px 3px 5px;
+}
+
+.complex-attr-row {
+    margin: 20px;    
+}
+
+.wrap {
+    display: none;
+    position: relative;
+    z-index: 9;
+	margin: 40px 0 40px 0 !important;
+}
+/* ── Inline checkbox label (used in batch test toolbar) ── */
+.ttr-inline-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ttr-muted, #888);
+    cursor: pointer;
+    user-select: none;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.ttr-inline-check input[type="checkbox"] {
+    accent-color: var(--ttr-accent, #c9a84c);
+    width: 13px;
+    height: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+}

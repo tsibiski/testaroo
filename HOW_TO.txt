@@ -1,0 +1,267 @@
+# Testaroo - User Guide
+
+## Introduction
+
+Testaroo is a WooCommerce quality assurance and maintenance toolkit designed to help store administrators identify and correct common catalog problems.
+
+The plugin focuses on four primary areas:
+
+* Product image validation
+* Duplicate image detection
+* Category cleanup and normalization
+* Product maintenance automation
+
+Unlike most WooCommerce plugins, Testaroo is intended as a maintenance tool rather than a storefront feature. Most actions are performed manually by an administrator (or automatically when products are edited or inserted) and are designed to improve catalog quality, search visibility, and customer experience.
+
+---
+
+# Getting Started
+
+After installing and activating the plugin:
+
+1. Open the WordPress Admin Dashboard.
+2. Navigate to **Testaroo** in the left navigation menu.
+3. Review the available tools and configure any desired settings.
+4. Run scans against a staging environment before using automatic repair functions on a production store.
+
+At your discretion, you may use manual run results as a barometer for the "automatic" repair tools as well. All tools, save for "Simple Category Conversion", use the same logic between manual and automatic edits. "Testers" do not perform ANY actions on products until you analyse the results and expressly request fixes.
+
+## Recommended First Run
+
+For first-time users, we recommend the following order:
+
+1. Product Batch Test
+2. Duplicate Image Test
+3. HTML Entity Cleanup
+4. Add Parent Categories
+5. Category Conversion Tools
+
+This order eases you into the tool by starting with tools that perform no changes to any products without your analysis of the results, and your explicit call to action based on those results (#1 and #2). 
+
+Then, the HTML Entity cleanup is a very safe fixer that replaces bad data with good data, and thus is not additive or subtractive. 
+
+Adding parent categories is also an optional, but safe additive action that simply walks up the tree of existing categories, and makes sure the parent categories are also associated with that product.
+
+Finally, the category conversion tools require your setup to perform any action. They require knowledge of problem areas in your catalog where products need to be re-organized into a category structure that fits how you present products to the customer.
+
+---
+
+# Product Batch Test
+
+## Purpose
+
+The Product Batch Test tool scans WooCommerce products for potential issues.
+
+Common issues detected may include:
+
+* Missing featured images
+* Broken image references
+* Invalid image URLs
+* Products requiring manual review
+
+## Running a Scan
+
+1. Open Product Batch Test.
+2. Configure the scan settings.
+3. Start the batch process.
+4. Allow the scan to complete.
+5. Review the generated results.
+
+## Common Actions
+
+### Find Replacement Images
+
+When a product is missing an image, Testaroo will provide image lookup tools to help locate replacement images.
+
+### Apply Product Image
+
+Assigns a selected image as the product's featured image.
+
+### Remove Broken Image Reference
+
+Removes references to image attachments that no longer exist, when the referenced image could not be found elsewhere in your file system.
+
+### Promote Gallery Image
+
+Uses an existing gallery image as the product's featured thumbnail image.
+
+---
+
+# Duplicate Image Test
+
+## Purpose
+
+Duplicate Image Test identifies unnecessary duplicate images within your media library.
+
+This can help:
+
+* Reduce storage and cache usage
+* Improve media library organization
+* Identify orphaned image uploads
+
+## Scan Types
+
+### Attachment Scan
+
+Reviews media library attachments.
+
+### Product Scan
+
+Reviews product image assignments.
+
+### Deep Check
+
+Performs additional validation to determine whether an image is actively used by parts of your system OTHER than WooCommerce products.
+
+This process may take significantly longer on large stores.
+
+## Cleanup Options
+
+### Delete Unused Images
+
+Removes images that have been verified as unused.
+
+A backup is created of unused images before deletion. The zip will be located at the top level under the uploads folder. You may download and/or delete this backup from the TTR ui.
+
+---
+
+# Category Conversion Tools
+
+## Purpose
+
+Category Conversion tools help normalize category structures.
+
+These tools are useful when:
+
+* Importing products from suppliers
+* Migrating from another ecommerce platform
+* Standardizing category naming conventions
+
+## Simple Category Conversion
+
+Performs direct category replacements.
+
+Example:
+
+Electronics > Cell Phones
+
+becomes
+
+Electronics > Mobile Phones
+
+## Complex Category Conversion
+
+Supports more advanced restructuring operations involving multiple source categories.
+
+Use this tool when simple one-to-one category replacement is not sufficient.
+
+---
+
+# Add Parent Categories
+
+## Purpose
+
+Automatically assigns missing parent categories where appropriate.
+
+Example:
+
+If a product belongs to:
+
+Electronics > Mobile Phones
+
+the tool may also assign:
+
+Electronics
+
+This can improve:
+
+* Catalog consistency
+* Category navigation
+* Filtering behavior
+
+---
+
+# Decode HTML Entities
+
+## Purpose
+
+Converts encoded HTML entities into readable text.
+
+Example:
+
+Before:
+
+AT & amp ; T
+
+After:
+
+AT&T
+
+This tool is particularly useful after product imports from external systems.
+
+---
+
+# Automated Behaviors
+
+Some tools support automated processing.
+
+Automation allows routine maintenance tasks to run without manual intervention.
+
+Before enabling automation:
+
+* Verify settings carefully
+* Test on a small subset of products
+* Monitor results after the first execution
+
+---
+
+# Best Practices
+
+## Always Backup First
+
+Before performing bulk modifications:
+
+* Backup your database
+* Backup uploads/media
+* Test on staging when possible
+
+## Start Small
+
+When using a new tool:
+
+* Process a limited set of products first
+* Review results
+* Expand gradually
+
+## Review Before Deleting
+
+Even when a tool identifies unused images or invalid references, manual review is recommended before permanent deletion.
+
+---
+
+# Troubleshooting
+
+## Scan Appears Stuck
+
+Possible causes:
+
+* PHP execution limits
+* Server timeouts
+* Large product catalogs
+
+Try reducing batch size and rerunning the scan.
+
+## Images Are Not Being Applied
+
+Verify:
+
+* The image URL is accessible
+* WordPress can write to the uploads directory
+
+## Results Are Empty
+
+Verify:
+
+* Products exist in WooCommerce
+* Scan filters are configured correctly
+* Previous results were not cleared

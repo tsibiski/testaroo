@@ -1,0 +1,15 @@
+.convert-categories-info {
+    font-size: 13px;
+    color: var(--ttr-muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    font-family: 'DM Mono', monospace;
+}
+
+.new-setting-mappings-region, .existing-settings-mappings-region {
+    margin-left: 25px;
+}
+
+#auto-fix-simple-categories-checkbox {
+    margin-top: 30px !important;
+}
