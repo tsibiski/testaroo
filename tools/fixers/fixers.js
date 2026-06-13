@@ -306,26 +306,26 @@ const FixComplexCategoryMappings = (() => {
     // ── Read a scenario object out of a container's data-field inputs ────────
 
     function readScenario(container) {
-        const get     = (name) => (container.querySelector(`[data-field="${name}"]`)?.value ?? '').trim();
+        const get     = (name) => (container.querySelector(`[data-field="${name}"]`)?.value ?? '');
         const checked = (name) => container.querySelector(`[data-field="${name}"]`)?.checked ?? false;
 
         const slugsRaw = get('matching_category_slugs');
-        const slugs    = slugsRaw ? slugsRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+        const slugs    = slugsRaw ? slugsRaw.split(',').map(s => screen).filter(Boolean) : [];
 
         // Read all attribute rows
         const attrRows = container.querySelectorAll('.complex-attr-row');
         const attrChecks = [];
         attrRows.forEach(row => {
-            const name     = (row.querySelector('[data-attr-field="name"]')?.value ?? '').trim();
-            const contains = (row.querySelector('[data-attr-field="contains"]')?.value ?? '').trim();
+            const name     = (row.querySelector('[data-attr-field="name"]')?.value ?? '');
+            const contains = (row.querySelector('[data-attr-field="contains"]')?.value ?? '');
             if (name || contains) attrChecks.push({ name, contains });
         });
 
         const applyRaw  = get('apply_category_slugs');
-        const applySlugs = applyRaw ? applyRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+        const applySlugs = applyRaw ? applyRaw.split(',').map(s => s).filter(Boolean) : [];
 
         const removeRaw  = get('remove_category_slugs');
-        const removeSlugs = removeRaw ? removeRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+        const removeSlugs = removeRaw ? removeRaw.split(',').map(s => s).filter(Boolean) : [];
 
         return {
             description              : get('description'),

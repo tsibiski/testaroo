@@ -135,7 +135,7 @@ function initTestersTab() {
         const calls = JSON.parse(elMassTryFixBrokenImagesCalls().value || '[]');
         const resultsContainer = elResultsOfMassBrokenImageFix();
         const removeUnfixable  = document.getElementById('removeUnfixableBrokenRefs')?.checked ?? false;
-        window.scrollBy({ top: 600, behavior: 'smooth' });
+        window.scrollBy({ top: 300, behavior: 'smooth' });
         resultsContainer.parentElement.style = "display: inline-block;";
         let callsInProgressMessage = resultsContainer.querySelector(".bulk-fix-in-progress-message");
         for (const call of calls) {
@@ -179,7 +179,7 @@ function initTestersTab() {
         const calls = JSON.parse(elMassTryFixTooSmallImagesCalls().value || '[]');
         const resultsContainer = elResultsOfMassTooSmallImageFix();
         window.scrollBy({
-          top: 600,
+          top: 300,
           behavior: 'smooth'
         });
         resultsContainer.parentElement.style = "display: inline-block;";
@@ -204,7 +204,7 @@ function initTestersTab() {
         const calls = JSON.parse(elMassTryFixPromoteGalleryCalls().value || '[]');
         const resultsContainer = elResultsOfMassPromoteGalleryFix();
         window.scrollBy({
-          top: 600,
+          top: 300,
           behavior: 'smooth'
         });
         resultsContainer.parentElement.style = "display: inline-block;";

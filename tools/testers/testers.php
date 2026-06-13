@@ -45,7 +45,7 @@
                     </button>
                 </div>
                 <label class="idt-scan-option" onclick="event.stopPropagation();">
-                    <input id="idtSkipUnused" class="settings-checkbox" type="checkbox" onchange="idtToggleCustomSearch(this)" style='min-height: 20px !important;min-width: 20px !important;     margin-top: 0px !important;margin-right: 5px !important;'>
+                    <input id="idtSkipUnused" class="settings-checkbox smaller-checkbox" type="checkbox" onchange="idtToggleCustomSearch(this)">
                     Skip unused image scan
                 </label>
                 <span id="idtSpinner"></span>
@@ -106,7 +106,7 @@
                     Try Fix Broken Images
                 </button>
                 <label class="ttr-inline-check" onclick="event.stopPropagation();">
-                    <input type="checkbox" id="removeUnfixableBrokenRefs">
+                    <input type="checkbox" class="settings-checkbox smaller-checkbox" id="removeUnfixableBrokenRefs">
                     Also remove unfixable broken references
                 </label>
             </div>
@@ -247,7 +247,7 @@
                     </div>
                     <div class="image-search-custom-row">
                         <label class="image-search-custom-label">
-                        <input id="image-search-custom-toggle" class="settings-checkbox" type="checkbox" onchange="idtToggleCustomSearch(this)" style='min-height: 20px !important;min-width: 20px !important;     margin-top: 0px !important;margin-right: 5px !important;'>
+                        <input id="image-search-custom-toggle" class="settings-checkbox smaller-checkbox" type="checkbox" onchange="idtToggleCustomSearch(this)">
                             Ignore product name & use custom search term only
                         </label>
                     </div>

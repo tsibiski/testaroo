@@ -207,7 +207,8 @@ function ttr_complex_scenario_matches(int $product_id, array $scenario): bool {
 
         $found = false;
         foreach ($terms as $term_name) {
-            if (stripos($term_name, $attr_val) !== false) {
+            //TODO: Add contains value, begins with, and ends with options if (stripos($term_name, $attr_val) !== false) {
+            if (strtolower(trim($term_name)) === strtolower(trim($attr_val))) {
                 $found = true;
                 break;
             }

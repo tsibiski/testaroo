@@ -13,7 +13,7 @@ if (!function_exists('ttr_ajax_security_check')) {
  * Plugin Name:             Testaroo
  * Plugin URI:              https://github.com/tsibiski/testaroo
  * Description:             WooCommerce product integrity testing tool.
- * Version:                 1.0
+ * Version:                 1.0.3
  * Author:                  Tim Sibiski
  * Author URI:              https://github.com/tsibiski
  * License:                 GPL-3.0
@@ -30,14 +30,19 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-require_once plugin_dir_path( __FILE__ ) . 'main/storage.php';
-require_once plugin_dir_path( __FILE__ ) . 'main/automated-behaviors.php';
-require_once plugin_dir_path( __FILE__ ) . 'main/blacklist.php';
-
+// Order of invocation here matters. Do not change order without understanding repurcussions.
+require_once plugin_dir_path(__FILE__) . 'main/storage.php';
+require_once plugin_dir_path(__FILE__) . 'main/blacklist.php';
 require_once plugin_dir_path(__FILE__) . 'tools/testers/testers.php';
 require_once plugin_dir_path(__FILE__) . 'tools/fixers/fixers.php';
 require_once plugin_dir_path(__FILE__) . 'tools/qa_tools/qa_tools.php';
 require_once plugin_dir_path(__FILE__) . 'tools/qa_automation/qa_automation.php';
+require_once plugin_dir_path(__FILE__) . 'tools/fixers/convert-simple-categories/convert-simple-categories.php';
+require_once plugin_dir_path(__FILE__) . 'tools/fixers/convert-complex-categories/convert-complex-categories.php';
+require_once plugin_dir_path(__FILE__) . 'tools/fixers/add-parent-categories/add-parent-categories.php';
+require_once plugin_dir_path(__FILE__) . 'tools/fixers/decode-html-entities/decode-html-entities.php';
+require_once plugin_dir_path(__FILE__) . 'main/automated-behaviors.php';
+
 
 add_action('admin_menu', function () {
     add_menu_page(
@@ -275,7 +280,7 @@ function testaroo_tool() {
                     transition:background .15s,color .15s;">
                     📖 View Readme
                 </button>
-                <span style="margin-left:10px;font-size:11px">Testaroo.Plugin@outlook.com</span>
+                <span style="margin-left:10px;font-size:11px">Testaroo.TTR@gmail.com</span>
             </p>
            <div>
                 <!-- ── General Automated Behavior Settings ── -->

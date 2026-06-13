@@ -216,6 +216,7 @@ input[type="checkbox"].settings-checkbox {
     box-shadow: none !important;
 }
 
+
 input[type="checkbox"].settings-checkbox::before,
 input[type="checkbox"].settings-checkbox::after {
     display: none !important;
@@ -229,6 +230,13 @@ input[type="checkbox"].settings-checkbox:checked {
     background-repeat: no-repeat !important;
     background-position: center !important;
     background-size: 90% !important;
+}
+
+input[type="checkbox"].settings-checkbox.smaller-checkbox {
+    min-height: 20px !important;
+    min-width: 20px !important;     
+    margin-top: 0px !important;
+    margin-right: 5px !important;
 }
 
 /* ── Foldout ── */
@@ -251,9 +259,9 @@ input[type="checkbox"].settings-checkbox:checked {
 }
 
 details:not([open]) summary::before {
-    content: '\25B6';
-    font-size: 10px;
-    margin: 0 10px 0 10px;
+    content: '\25B6' !important;
+    font-size: 10px !important;
+    margin: 0 10px 0 10px !important;
 }
 
 details[open] summary::before {

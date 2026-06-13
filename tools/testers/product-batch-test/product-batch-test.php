@@ -317,11 +317,26 @@ function ttr_apply_product_image()
     if ($attachment_id === false || $attachment_id === 0 || empty($attachment_id)) {
         wp_send_json_error(['message' => 'Image import failed. ID: ' . var_export($attachment_id, true)]);
     }
-    set_post_thumbnail($product_id, $attachment_id);
 
-    wp_send_json_success([
-        'message' => 'Product image updated.'
-    ]);
+    $existing_thumb = get_post_thumbnail_id($product_id);
+
+    if (!$existing_thumb) {
+        // No thumbnail yet — set this as the featured image.
+        set_post_thumbnail($product_id, $attachment_id);
+        wp_send_json_success(['message' => 'Product image updated.']);
+    } else {
+        // Thumbnail already set — append to gallery without touching it.
+        $gallery_raw = get_post_meta($product_id, '_product_image_gallery', true);
+        $gallery_ids = $gallery_raw ? array_filter(array_map('intval', explode(',', $gallery_raw))) : [];
+
+        if (in_array((int) $attachment_id, $gallery_ids, true)) {
+            wp_send_json_success(['message' => 'Image is already in the product gallery.']);
+        }
+
+        $gallery_ids[] = (int) $attachment_id;
+        update_post_meta($product_id, '_product_image_gallery', implode(',', array_unique($gallery_ids)));
+        wp_send_json_success(['message' => 'Image added to product gallery.']);
+    }
 }
 
 function ttr_download_image($image_url, $product_id)
@@ -1194,4 +1209,3 @@ add_action('wp_ajax_testaroo_get_results', function () {
     }
     wp_send_json_success(['results' => $jsonResults]);
 });
- 
