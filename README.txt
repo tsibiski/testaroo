@@ -114,7 +114,9 @@ Before any image is permanently deleted, a backup ZIP archive is created in your
 
 = Does this plugin work without WooCommerce? =
 
-No. Testaroo requires WooCommerce to be installed and active.
+Only a single feature will work without WooCommerce. The tool, Testers > Image Duplicate & Unused Finder, will still allow you to find all images stored within the uploads folder that are not referenced in code or in post meta data.
+
+Phase 2 of this tool is related to WooCommerce products, and will simply return 0 results if WooCommerce does not exist. Phases 1, 3 and 4 are the phases that do not require WooCommerce. In the future, Tools and Playwright test ingreation will also not require WooCommerce.
 
 == Screenshots ==
 

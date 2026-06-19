@@ -13,13 +13,12 @@ if (!function_exists('ttr_ajax_security_check')) {
  * Plugin Name:             Testaroo
  * Plugin URI:              https://github.com/tsibiski/testaroo
  * Description:             WooCommerce product integrity testing tool.
- * Version:                 1.0.3
+ * Version:                 1.0.4
  * Author:                  Tim Sibiski
  * Author URI:              https://github.com/tsibiski
  * License:                 GPL-3.0
  * License URI:             https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:             testaroo
- * Requires Plugins: woocommerce
  * Requires at least:       5.9
  * Requires PHP:            7.4
  * WC requires at least:    6.0
