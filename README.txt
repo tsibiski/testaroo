@@ -128,10 +128,10 @@ Phases 1-3 of this tool is related to WooCommerce products, and will simply retu
 
 == Changelog ==
 
-= 1.4 =
+= 1.5 =
 * Initial public release.
 
 == Upgrade Notice ==
 
-= 1.4 =
+= 1.5 =
 Initial release.
